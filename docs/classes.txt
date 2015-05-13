@@ -1,0 +1,84 @@
+==================================================
+
+Ozfortress Voting :: Classes
+
+==================================================
+--------------------------------------------------
+Walkthrough
+
+Case: Player has not made any votes prior
+1. Player Logs in to website with SteamOAuth
+2. Player is presented with current season voting
+3. For each vote category, player selects who they vote for
+4. Player submits votes
+5. Acknowledge
+-- End
+
+
+Case 2: Player wants to change votes
+1. Player logs in to website with SteamOAuth
+2. Player is presented with current season voting
+3. Screen is autofilled with previous vote selections
+4. Player selects which vote they wish to change.
+5. Player changes vote, and hits update.
+6. Update is sent to the server.
+7. Acknowledge
+-- End
+
+
+Case 3: Player wants to delete a vote
+1. Player logs in to website with SteamOAuth
+2. Player is presented with current season voting.
+3. Screen is autofilled dwith previous vote selections
+4. Player navigates to the vote they wish to delete.
+5. Player presses delete.
+6. Delete is sent to server.
+7. Acknowledge
+-- End
+
+
+--------------------------------------------------
+Web Design per user access level
+
+Unauthed user:
+	Front Page: Display unlocked + public season results
+	Season Results: Display all counts for that season
+		- Do not show who voted for who
+
+Authed user:
+	Front Page: Display unlocked + public season results
+		Display box for current season voting
+	Voting page:
+		Each vote type has a box
+			Update / Delete buttons
+				Update is both CU
+				Not available if season locked
+			Shows active vote (if exists)
+			Select by dropdown
+		Bottom: Update all button
+	Season Results:
+		Same as unauthed user
+
+Admin:
+	Font Page: Derived from authed
+		Extend: Add Section 'Admin'
+			Season Mod
+	Voting page: Derived from authed
+	Admin season page:
+		Division selection
+	Admin division page:
+		Calculate results
+			Returns JSON
+				-> Plain Text
+				-> BBCode
+		Show all votes
+			For each category
+			'UserX voted for UserY'
+	Season Results: same as unauthed
+		Extend: Can view who voted for who
+
+SiteAdmin:
+	Front Page: Derived from Admin
+		Extend: Add Section 'Website'
+			User Mod
+	Everything else: Derived from admin
